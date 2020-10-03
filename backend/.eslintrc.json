@@ -19,17 +19,15 @@
       "prettier"
   ],
   "rules": {
-    "no-underscore-dangle": "off",
+    "prettier/prettier": "error",
     "class-methods-use-this": "off",
-    "@typescript-eslint/camelcase": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
       {
         "ts": "never"
       }
-    ],
-    "prettier/prettier": "error"
+    ]
   },
   "settings": {
     "import/resolver": {

@@ -1,7 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class WeddingPhotos1601746422693
-  implements MigrationInterface {
+export default class WeddingPhotos1601746422693 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -17,14 +16,13 @@ export default class WeddingPhotos1601746422693
             name: 'weddingPhotos',
             type: 'varchar',
             isNullable: false,
-          }
-        ]
+          },
+        ],
       }),
     );
-    }
+  }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('wedding')
-    }
-
+    await queryRunner.dropTable('wedding');
+  }
 }
