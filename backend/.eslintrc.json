@@ -1,6 +1,6 @@
 {
   "env": {
-      "es2020": true,
+      "es6": true,
       "node": true
   },
   "extends": [
@@ -19,7 +19,10 @@
       "prettier"
   ],
   "rules": {
-     "import/extensions": [
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/camelcase": "off",
+    "import/extensions": [
       "error",
       "ignorePackages",
       {
