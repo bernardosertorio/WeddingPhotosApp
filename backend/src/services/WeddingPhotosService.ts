@@ -5,8 +5,6 @@ interface Request {
   filename: string;
 }
 
-interface WeddingPhotos {}
-
 class SavingWeddingPhotos {
   public async execute({ filename }: Request): Promise<WeddingPhotos> {
     const weddingPhotosRepository = getRepository(WeddingPhotos);
@@ -19,7 +17,13 @@ class SavingWeddingPhotos {
       throw new AppError('This photo already exists', 401);
     }
 
-    await weddingPhotosRepository.save(filename);
+    const newWeddingPhotos = weddingPhotosRepository.create({
+      weddingPhotos: filename,
+    });
+
+    await weddingPhotosRepository.save(newWeddingPhotos);
+
+    return newWeddingPhotos;
   }
 }
 

@@ -14,11 +14,11 @@ weddingPhotosRouter.post(
     try {
       const updateWeddingPhotos = new WeddingPhotosService();
 
-      await updateWeddingPhotos.execute({
+      const newWeddingPhot = await updateWeddingPhotos.execute({
         filename: request.file.filename,
       });
 
-      return response.json({ ok: true });
+      return response.json(newWeddingPhot);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
