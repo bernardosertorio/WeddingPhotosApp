@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import { getRepository } from 'typeorm';
 import multer from 'multer';
+import WeddingPhotos from '../models/WeddingPhotos';
 import multerConfig from '../config/multer';
 
 import WeddingPhotosService from '../services/WeddingPhotosService';
@@ -14,15 +16,22 @@ weddingPhotosRouter.post(
     try {
       const updateWeddingPhotos = new WeddingPhotosService();
 
-      const newWeddingPhot = await updateWeddingPhotos.execute({
+      const newWeddingPhoto = await updateWeddingPhotos.execute({
         filename: request.file.filename,
       });
 
-      return response.json(newWeddingPhot);
+      return response.json(newWeddingPhoto);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
   },
 );
+
+weddingPhotosRouter.get('/weddingphotos', async (request, response) => {
+  const weddingPhotosRepository = getRepository(WeddingPhotos);
+  const showWeddingPhotos = await weddingPhotosRepository.find();
+
+  return response.json(showWeddingPhotos);
+});
 
 export default weddingPhotosRouter;

@@ -14,7 +14,7 @@ class SavingWeddingPhotos {
     });
 
     if (checkPhotoExists) {
-      throw new AppError('This photo already exists', 401);
+      throw new Error('This photo already exists');
     }
 
     const newWeddingPhotos = weddingPhotosRepository.create({
