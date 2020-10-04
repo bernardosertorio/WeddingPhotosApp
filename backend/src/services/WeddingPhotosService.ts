@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import WeddingPhotos from '../models/WeddingPhotos';
+import AppError from '../errors/AppError';
 
 interface Request {
   filename: string;
@@ -14,7 +15,7 @@ class SavingWeddingPhotos {
     });
 
     if (checkPhotoExists) {
-      throw new Error('This photo already exists');
+      throw new AppError('This photo already exists', 401);
     }
 
     const newWeddingPhotos = weddingPhotosRepository.create({
