@@ -1,12 +1,24 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('wedding')
-class EntityWeddingPhotos {
+class WeddingPhotos {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   weddingPhotos: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
-export default EntityWeddingPhotos;
+export default WeddingPhotos;

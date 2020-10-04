@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import express from 'express';
 import routes from './routes';
-import uploadConfig from './config/upload';
+import uploadConfig from './config/multer';
 
 import './database';
 
