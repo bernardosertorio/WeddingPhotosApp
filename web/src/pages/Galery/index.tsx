@@ -6,14 +6,13 @@ import api from '../../services/api';
 import './styles.css';
 
 const Galery: React.FC = () => {
-  const [photos, setPhotos] = useState([]);
-  const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const storagedRepositories = localStorage.getItem(
-      '@GithubExplorer:repositories',
+  const [photos, setPhotos] = useState<Repository[]>(() => {
+    const storagedPhotos = localStorage.getItem(
+      '@FotosDeCasamento:photos',
     );
 
-    if (storagedRepositories) {
-      return JSON.parse(storagedRepositories);
+    if (storagedPhotos) {
+      return JSON.parse(storagedPhotos);
     }
 
     return [];
@@ -21,34 +20,33 @@ const Galery: React.FC = () => {
 
   useEffect(() => {
     localStorage.setItem(
-      '@GithubExplorer:repositories',
-      JSON.stringify(repositories),
+      '@FotosDeCasamento:photos',
+      JSON.stringify(photos),
     );
-  }, [repositories]);
+  }, [photos]);
 
-    return (
+  return (
 
-      <div className="listrecords-container">
+    <div className="listrecords-container">
 
-        <header>
-          <h1>Wedding Photos List</h1>
-          <Link className="button" to="/">Post New Wedding Photo</Link>
-        </header>
+      <header>
+        <h1>Wedding Photos List</h1>
+        <Link className="button" to="/">Post New Wedding Photo</Link>
+      </header>
 
-        {response.map((deliveryuser) => (
+      {response.map((wedding) => (
 
-          <ul key={id}>
-            <li>
-              <span>{{}}</span>
-              <h2>Foto do Casamento</h2>
-            </li>
-          </ul>
+        <ul key={id}>
+          <li>
+            <span>{{}}</span>
+            <h2>Foto do Casamento</h2>
+          </li>
+        </ul>
 
-        ))}
-        ;
-      </div>
-    );
-  };
+      ))}
+      ;
+    </div>
+  );
 };
 
 export default Galery;
