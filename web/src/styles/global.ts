@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+export default createGlobalStyle`
 :root {
   --primary-color: #34CB79;
   --title-color: #322153;
@@ -23,4 +26,4 @@ body, input, button {
 h1, h2, h3, h4, h5, h6 {
   color: var(--title-color);
   font-family: Ubuntu;
-}
+}`;

@@ -1,40 +1,54 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import api from '../../services/api'
+import api from '../../services/api';
 
-import './styles.css'
+import './styles.css';
 
-export default function Galery() {
+const Galery: React.FC = () => {
   const [photos, setPhotos] = useState([]);
-  
-  async function loadPhotos() {
-      useEffect(() => {
-        api.get('/galery').then(response => {
-          setPhotos(response.data);
-        })
-      }, []);
+  const [repositories, setRepositories] = useState<Repository[]>(() => {
+    const storagedRepositories = localStorage.getItem(
+      '@GithubExplorer:repositories',
+    );
+
+    if (storagedRepositories) {
+      return JSON.parse(storagedRepositories);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@GithubExplorer:repositories',
+      JSON.stringify(repositories),
+    );
+  }, [repositories]);
 
     return (
 
       <div className="listrecords-container">
 
         <header>
-          <h1>Delivery list</h1>
-          <Link className="button" to="/"> Register New </Link>
+          <h1>Wedding Photos List</h1>
+          <Link className="button" to="/">Post New Wedding Photo</Link>
         </header>
-        
-        {response.map(deliveryuser => (
+
+        {response.map((deliveryuser) => (
 
           <ul key={id}>
             <li>
-             <span>{{}}</span>
-             <h2>Foto do Casamento</h2>    
+              <span>{{}}</span>
+              <h2>Foto do Casamento</h2>
             </li>
           </ul>
 
-        ))};
-      </div>  
-    )
-  }
-}
+        ))}
+        ;
+      </div>
+    );
+  };
+};
+
+export default Galery;
