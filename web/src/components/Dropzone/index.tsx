@@ -4,12 +4,9 @@ import {FiUpload} from 'react-icons/fi'
 
 import './styles.css'
 
-interface Props {
-  onFileUploaded: (file: File) => void
-}
+interface Props { onFileUploaded: (file: File) => void };
 
 const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
-
   const [selectedFileUrl, setSelectedFileUrl] = useState('')
 
   const onDrop = useCallback(acceptedFiles => {
@@ -37,7 +34,7 @@ const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
             : ( 
               <p>
                 <FiUpload />
-                Imagem de estabelecimento
+                Foto do Casamento
               </p>
             )
            }            
