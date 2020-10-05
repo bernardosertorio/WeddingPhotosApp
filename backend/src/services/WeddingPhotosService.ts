@@ -1,12 +1,15 @@
 import { getRepository } from 'typeorm';
+import path from 'path';
+import { uuid } from 'uuidv4';
 import WeddingPhotos from '../models/WeddingPhotos';
 import AppError from '../errors/AppError';
+import multerConfig from '../config/multer';
 
 interface Request {
   filename: string;
 }
 
-class SavingWeddingPhotos {
+class WeddingPhotosService {
   public async execute({ filename }: Request): Promise<WeddingPhotos> {
     const weddingPhotosRepository = getRepository(WeddingPhotos);
 
@@ -19,6 +22,7 @@ class SavingWeddingPhotos {
     }
 
     const newWeddingPhotos = weddingPhotosRepository.create({
+      id: uuid(),
       weddingPhotos: filename,
     });
 
@@ -28,4 +32,4 @@ class SavingWeddingPhotos {
   }
 }
 
-export default SavingWeddingPhotos;
+export default WeddingPhotosService;

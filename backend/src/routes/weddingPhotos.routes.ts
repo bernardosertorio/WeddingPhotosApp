@@ -1,8 +1,8 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import multer from 'multer';
-import WeddingPhotos from '../models/WeddingPhotos';
 import multerConfig from '../config/multer';
+import WeddingPhotos from '../models/WeddingPhotos';
 
 import WeddingPhotosService from '../services/WeddingPhotosService';
 
@@ -23,14 +23,11 @@ weddingPhotosRouter.post(
   },
 );
 
-weddingPhotosRouter.get(
-  '/weddingphotos',
-  async (request: Request, response: Response) => {
-    const weddingPhotosRepository = getRepository(WeddingPhotos);
-    const showWeddingPhotos = await weddingPhotosRepository.find();
+weddingPhotosRouter.get('/weddingphotos', async (request, response) => {
+  const weddingPhotosRepository = getRepository(WeddingPhotos);
+  const showWeddingPhotos = await weddingPhotosRepository.find();
 
-    return response.json(showWeddingPhotos);
-  },
-);
+  return response.json(showWeddingPhotos);
+});
 
 export default weddingPhotosRouter;
