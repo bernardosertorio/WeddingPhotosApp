@@ -1,51 +1,51 @@
 import React, { useState, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import api from '../../services/api'
+import api from '../../services/api';
 import Dropzone from '../../components/Dropzone';
 
-import './styles.css'
+import { Header, Form } from './styles';
 
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg';
 
-const UploadPhotos = () => {
-  const [selectedFile, setSelectedFile] = useState<File>()
+const UploadPhotos: React.FC = () => {
+  const [selectedFile, setSelectedFile] = useState<File>();
 
-  const history = useHistory()
+  const history = useHistory();
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const data = new FormData()
-    
+    const data = new FormData();
+
     if (selectedFile) {
-      data.append('image', selectedFile)
+      data.append('image', selectedFile);
     }
 
-     history.push('/galery')
+    history.push('/galery');
   }
 
-   return (
-      <div id="page-create-point">
-       <header>
-         <img src={logo} alt="Ecoleta" />
+  return (
+    <>
+      <Header>
+        <img src={logo} alt="Ecoleta" />
 
-         <Link to="/galery">
-           <FiArrowRight />
-           Ir para Galeria
-         </Link>
-       </header>
+        <Link to="/galery">
+          <FiArrowRight />
+          Ir para Galeria
+        </Link>
+      </Header>
 
-        <form onSubmit={handleSubmit}>
-          <h1>Selecione sua Foto do Casamento</h1>
+      <Form onSubmit={handleSubmit}>
+        <h1>Selecione sua Foto do Casamento</h1>
 
-          <Dropzone onFileUploaded={setSelectedFile} />
+        <Dropzone onFileUploaded={setSelectedFile} />
 
-          <button type="submit">Envie sua foto do Casamento</button>
-        
-        </form>
-     </div>
-   )
- }
+        <button type="submit">Envie sua foto do Casamento</button>
 
- export default UploadPhotos;
+      </Form>
+    </>
+  );
+};
+
+export default UploadPhotos;
