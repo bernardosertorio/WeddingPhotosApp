@@ -4,7 +4,7 @@ import multer from 'multer';
 import multerConfig from '../config/multer';
 import WeddingPhotos from '../models/WeddingPhotos';
 
-import WeddingPhotosService from '../services/WeddingPhotosService';
+import SavingWeddingPhotosService from '../services/SavingWeddingPhotosService';
 
 const weddingPhotosRouter = Router();
 const upload = multer(multerConfig);
@@ -13,13 +13,13 @@ weddingPhotosRouter.post(
   '/',
   upload.single('file'),
   async (request, response) => {
-    const updateWeddingPhotos = new WeddingPhotosService();
+    const updateWeddingPhotos = new SavingWeddingPhotosService();
 
-    const newWeddingPhoto = await updateWeddingPhotos.execute({
-      filename: request.file.filename,
+    const newWeddingPhotos = await updateWeddingPhotos.execute({
+      filename: request.file.fieldname,
     });
 
-    return response.json(newWeddingPhoto);
+    return response.json(newWeddingPhotos);
   },
 );
 
