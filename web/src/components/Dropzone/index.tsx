@@ -1,45 +1,45 @@
-import React, {useCallback, useState} from 'react'
-import {useDropzone} from 'react-dropzone'
-import {FiUpload} from 'react-icons/fi'
+import React, { useCallback, useState } from 'react';
+import { useDropzone, DropzoneInputProps, DropzoneRootProps } from 'react-dropzone';
+import { FiUpload } from 'react-icons/fi';
 
-import './styles.css'
+import './styles.css';
 
-interface Props { onFileUploaded: (file: File) => void };
+interface Props {
+  onFileUploaded: (file: File) => void,
+}
 
 const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
-  const [selectedFileUrl, setSelectedFileUrl] = useState('')
+  const [selectedFileUrl, setSelectedFileUrl] = useState('');
 
-  const onDrop = useCallback(acceptedFiles => {
-    const file = acceptedFiles[0]
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
 
-    const fileUrl = URL.createObjectURL(file)
+    const fileUrl = URL.createObjectURL(file);
 
-    setSelectedFileUrl(fileUrl)
+    setSelectedFileUrl(fileUrl);
 
-    onFileUploaded(file)
-    
-  }, [onFileUploaded])
-  
+    onFileUploaded(file);
+  }, [onFileUploaded]);
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*'
-  })
+    accept: 'image/*',
+  });
 
   return (
     <div className="dropzone" {...getRootProps()}>
-      <input {...getInputProps()} accept="image/*"/>
+      <input {...getInputProps()} accept="image/*" />
 
-        { selectedFileUrl
-            ? <img src={selectedFileUrl} alt="Point thumbnail" />
-            : ( 
-              <p>
-                <FiUpload />
-                Foto do Casamento
-              </p>
-            )
-           }            
-      </div>
-  )
-}
+      { selectedFileUrl
+        ? <img src={selectedFileUrl} alt="Point thumbnail" />
+        : (
+          <p>
+            <FiUpload />
+            Foto do Casamento
+          </p>
+        )}
+    </div>
+  );
+};
 
 export default Dropzone;
