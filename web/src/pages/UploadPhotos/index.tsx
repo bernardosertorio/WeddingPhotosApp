@@ -1,12 +1,11 @@
 import React, { useState, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
+import Container from '@material-ui/core/Container';
 import api from '../../services/api';
 import Dropzone from '../../components/Dropzone';
 
 import { Header, Form } from './styles';
-
-import logo from '../../assets/logo.svg';
 
 const UploadPhotos: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -19,16 +18,20 @@ const UploadPhotos: React.FC = () => {
     const data = new FormData();
 
     if (selectedFile) {
-      data.append('image', selectedFile);
+      data.append('file', selectedFile);
     }
 
-    history.push('/galery');
+    if (window.confirm('Você quer adicionar essa foto?')) {
+      api.post('/', data).then(() => {
+        history.push('/galery');
+      });
+    }
   }
 
   return (
-    <>
+    <Container maxWidth="lg">
       <Header>
-        <img src={logo} alt="Ecoleta" />
+        <h1>Upload de Imagem</h1>
 
         <Link to="/galery">
           <FiArrowRight />
@@ -37,14 +40,14 @@ const UploadPhotos: React.FC = () => {
       </Header>
 
       <Form onSubmit={handleSubmit}>
-        <h1>Selecione sua Foto do Casamento</h1>
+        <h2>Selecione sua Foto do Casamento</h2>
 
         <Dropzone onFileUploaded={setSelectedFile} />
 
-        <button type="submit">Envie sua foto do Casamento</button>
+        <button disabled={!selectedFile} style={{ opacity: !selectedFile ? 0.4 : 1 }} type="submit">Envie sua foto do Casamento</button>
 
       </Form>
-    </>
+    </Container>
   );
 };
 
