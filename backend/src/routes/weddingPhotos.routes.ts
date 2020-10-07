@@ -16,14 +16,14 @@ weddingPhotosRouter.post(
     const updateWeddingPhotos = new SavingWeddingPhotosService();
 
     const newWeddingPhotos = await updateWeddingPhotos.execute({
-      filename: request.file.fieldname,
+      filename: request.file.filename,
     });
 
     return response.json(newWeddingPhotos);
   },
 );
 
-weddingPhotosRouter.get('/weddingphotos', async (request, response) => {
+weddingPhotosRouter.get('/galery', async (request, response) => {
   const weddingPhotosRepository = getRepository(WeddingPhotos);
   const showWeddingPhotos = await weddingPhotosRepository.find();
 
