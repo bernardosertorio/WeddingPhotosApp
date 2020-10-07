@@ -1,52 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Container from '@material-ui/core/Container';
+import { Box } from '@material-ui/core';
 
 import api from '../../services/api';
-import { Header } from './styles';
 
-interface FilenameParams {
-  filename: string;
+interface IPhotos {
+  id: string;
+  weddingPhotos: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+    padding: 50,
+  },
+  box: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 50,
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+  },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+}));
+
+const stylesColors = { primary: '#2FB86E' };
+
 const Galery: React.FC = () => {
-  [photosRepository, setPhotosRepository] = useState<FilenameParams>(() => {
-    const storagedPhotos = localStorage.getItem(
-      '@FotosDeCasamento:photos',
-    );
+  const classes = useStyles();
 
-    if (storagedPhotos) {
-      return JSON.parse(storagedPhotos);
-    }
-
-    return [];
-  });
+  const [photos, setPhotos] = useState<IPhotos[]>([]);
 
   useEffect(() => {
     api.get('/galery').then((response) => {
-      setPhotosRepository(response.data);
+      setPhotos(response.data);
     });
-  }, []),
-
-  response = await api.get<FilenameParams>(`galery/${photosRepository}`);
+  }, []);
 
   return (
     <>
-      <ContainerPhoto>
-        <Header>
-          <h1>Wedding Photos List</h1>
-          <Link className="button" to="/">Post New Wedding Photo</Link>
-        </Header>
-        <Body>
-          {response.map(() => (
-            <ul key={id}>
-              <li>
-                <span>{}</span>
-                <h2>Foto do Casamento</h2>
-              </li>
-            </ul>
-          ))}
-        </Body>
-      </ContainerPhoto>
+      <Container maxWidth="lg">
+        <Box className={classes.box}>
+          <h1 style={{ color: stylesColors.primary }}>Galeria de Imagens</h1>
+          <Link style={{ textDecoration: 'none' }} to="/">
+            <FiArrowLeft />
+            <strong style={{ marginLeft: 5 }}>Voltar</strong>
+          </Link>
+        </Box>
+        <div className={classes.root}>
+          <GridList cellHeight={180} className={classes.gridList}>
+            <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }} />
+            {photos.map((photo, index) => (
+              <GridListTile key={photo.id}>
+                <img src={`http://localhost:3333/files/${photo.weddingPhotos}`} alt="Wedding Photos" />
+                <GridListTileBar
+                  title={index}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
+      </Container>
     </>
   );
 };
