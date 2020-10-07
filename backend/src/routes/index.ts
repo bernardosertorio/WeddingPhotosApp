@@ -5,6 +5,6 @@ import weddingPhotosRouter from './weddingPhotos.routes';
 const routes = Router();
 
 routes.use('/', weddingPhotosRouter);
-routes.use('/weddingphotos', weddingPhotosRouter);
+routes.use('/galery', weddingPhotosRouter);
 
 export default routes;
