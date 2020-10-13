@@ -41,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
 
 const stylesColors = { primary: '#2FB86E' };
 
-const Galery: React.FC = () => {
+const Gallery: React.FC = () => {
   const classes = useStyles();
 
   const [photos, setPhotos] = useState<IPhotos[]>([]);
 
   useEffect(() => {
-    api.get('/galery').then((response) => {
+    api.get('/gallery').then((response) => {
       setPhotos(response.data);
     });
   }, []);
@@ -80,4 +80,4 @@ const Galery: React.FC = () => {
   );
 };
 
-export default Galery;
+export default Gallery;

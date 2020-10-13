@@ -23,7 +23,7 @@ const UploadPhotos: React.FC = () => {
 
     if (window.confirm('Você quer adicionar essa foto?')) {
       api.post('/', data).then(() => {
-        history.push('/galery');
+        history.push('/gallery');
       });
     }
   }
@@ -33,7 +33,7 @@ const UploadPhotos: React.FC = () => {
       <Header>
         <h1>Upload de Imagem</h1>
 
-        <Link to="/galery">
+        <Link to="/gallery">
           <FiArrowRight />
           Ir para Galeria
         </Link>
