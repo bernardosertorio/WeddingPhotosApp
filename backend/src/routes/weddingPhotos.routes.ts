@@ -5,6 +5,7 @@ import multerConfig from '../config/multer';
 import WeddingPhotos from '../models/WeddingPhotos';
 
 import SavingWeddingPhotosService from '../services/SavingWeddingPhotosService';
+import DeleteWeddingPhotoService from '../services/DeleteWeddingPhotoService';
 
 const weddingPhotosRouter = Router();
 const upload = multer(multerConfig);
@@ -23,11 +24,20 @@ weddingPhotosRouter.post(
   },
 );
 
-weddingPhotosRouter.get('/galery', async (request, response) => {
+weddingPhotosRouter.get('/gallery', async (request, response) => {
   const weddingPhotosRepository = getRepository(WeddingPhotos);
   const showWeddingPhotos = await weddingPhotosRepository.find();
 
   return response.json(showWeddingPhotos);
+});
+
+weddingPhotosRouter.delete('/gallery/:id', async (request, response) => {
+  const { id } = request.params;
+  const deletePhoto = new DeleteWeddingPhotoService();
+
+  await deletePhoto.execute(id);
+
+  return response.status(204).send();
 });
 
 export default weddingPhotosRouter;
