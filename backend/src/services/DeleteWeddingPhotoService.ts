@@ -5,7 +5,6 @@ import WeddingPhotos from '../models/WeddingPhotos';
 class DeleteWeddingPhotoService {
   public async execute(id: string): Promise<void> {
     const weddingPhotosRepository = getRepository(WeddingPhotos);
-
     const photo = await weddingPhotosRepository.findOne(id);
 
     if (!photo) {

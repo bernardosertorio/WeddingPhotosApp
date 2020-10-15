@@ -8,7 +8,6 @@ interface Request {
 class SavingWeddingPhotosService {
   public async execute({ filename }: Request): Promise<WeddingPhotos> {
     const weddingPhotosRepository = getRepository(WeddingPhotos);
-
     const newWeddingPhotos = weddingPhotosRepository.create({
       weddingPhotos: filename,
     });
