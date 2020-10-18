@@ -43,7 +43,6 @@ const stylesColors = { primary: '#2FB86E' };
 
 const Gallery: React.FC = () => {
   const classes = useStyles();
-
   const [photos, setPhotos] = useState<IPhotos[]>([]);
 
   useEffect(() => {
@@ -63,11 +62,14 @@ const Gallery: React.FC = () => {
           </Link>
         </Box>
         <div className={classes.root}>
-          <GridList cellHeight={180} className={classes.gridList}>
+          <GridList>
             <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }} />
             {photos.map((photo, index) => (
               <GridListTile key={photo.id}>
-                <img src={`http://localhost:3333/files/${photo.weddingPhotos}`} alt="Wedding Photos" />
+                <Link to={`/gallery/${photo.weddingPhotos}`}>
+                  <img src={`http://localhost:3333/files/${photo.weddingPhotos}`} alt="Wedding Photos" />
+                </Link>
+                <button type="submit">Deletar</button>
                 <GridListTileBar
                   title={index}
                 />
