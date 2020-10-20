@@ -8,14 +8,14 @@ import api from '../../services/api';
 
 interface IPhoto {
   id: string;
-  weddingPhotos: string;
+  weddingPhoto: string;
 }
 
 const ShowPhoto: React.FC = () => {
   const [photo, setPhoto] = useState<IPhoto>();
 
   useEffect(() => {
-    api.get(`/galerry/${photo?.weddingPhotos}`).then((response) => {
+    api.get(`/gallery/${photo?.id}`).then((response) => {
       setPhoto(response.data);
     });
   }, [photo]);
@@ -29,8 +29,9 @@ const ShowPhoto: React.FC = () => {
           Voltar
         </Link>
       </Header>
+
       <PhotoContainer>
-        <img src={`http://localhost:3333/files/${photo?.weddingPhotos}`} alt="Wedding Photos" />
+        <img src={`http://localhost:3333/files/${photo?.weddingPhoto}`} alt="Wedding Photos" />
       </PhotoContainer>
     </>
   );

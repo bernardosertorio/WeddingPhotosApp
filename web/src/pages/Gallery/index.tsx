@@ -66,7 +66,7 @@ const Gallery: React.FC = () => {
             <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }} />
             {photos.map((photo, index) => (
               <GridListTile key={photo.id}>
-                <Link to={`/gallery/${photo.weddingPhotos}`}>
+                <Link to={`/gallery/${photo.id}`}>
                   <img src={`http://localhost:3333/files/${photo.weddingPhotos}`} alt="Wedding Photos" />
                 </Link>
                 <button type="submit">Deletar</button>
